@@ -1,11 +1,6 @@
 package com.example.minhvu.testing_android;
 
-import android.app.AlertDialog;
-import android.app.Dialog;
-import android.app.ProgressDialog;
-import android.content.Context;
 import android.os.AsyncTask;
-import android.widget.Toast;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -26,12 +21,14 @@ public class LogIn extends AsyncTask<String, String, String> {
     private String username;
     private String password;
     private String email;
-    private Context context;
+    private String facebook_id;
 
-    public LogIn (String s_username, String s_password, String s_email) {
+    public LogIn (String s_username, String s_password, String s_email, String s_facebook_id) {
         this.username = s_username;
         this.password = s_password;
         this.email = s_email;
+        this.facebook_id = s_facebook_id;
+
     }
 
     @Override
@@ -50,7 +47,7 @@ public class LogIn extends AsyncTask<String, String, String> {
             testing.put("username", this.username);
             testing.put("password", this.password);
             testing.put("email", this.email);
-            testing.put("signup_date", formatDate());
+            testing.put("facebook_id", this.facebook_id);
 
             OutputStream os = conn.getOutputStream();
             OutputStreamWriter osw = new OutputStreamWriter(os, "UTF-8");
@@ -82,10 +79,4 @@ public class LogIn extends AsyncTask<String, String, String> {
         System.out.println(result);
         super.onPostExecute(result);
     }
-    public String formatDate() {
-        Calendar c = Calendar.getInstance();
-        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-mm-dd");
-        return sdf.format(c.getTime());
-    }
-
 }

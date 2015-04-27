@@ -8,7 +8,6 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.facebook.AccessToken;
 import com.facebook.CallbackManager;
@@ -21,6 +20,7 @@ import com.facebook.GraphResponse;
 import com.facebook.login.LoginManager;
 import com.facebook.login.LoginResult;
 
+import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.Arrays;
@@ -30,6 +30,7 @@ import java.util.Collection;
 public class MainActivity extends ActionBarActivity {
     CallbackManager callbackManager;
     LoginManager loginManager;
+    String s_signin = "http://10.0.2.2:5000/accounts";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -77,14 +78,14 @@ public class MainActivity extends ActionBarActivity {
         signin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                TextView v_username = (TextView) findViewById(R.id.username);
+                TextView v_username = (TextView) findViewById(R.id.signin_username);
                 String s_username = v_username.getText().toString();
 
-                TextView v_password = (TextView) findViewById(R.id.password);
+                TextView v_password = (TextView) findViewById(R.id.signin_password);
                 String s_password = v_password.getText().toString();
 
-                LogIn login = new LogIn(s_username, s_password, "");
-                login.execute("http://10.0.2.2:5000/accounts");
+                LogIn login = new LogIn(s_username, s_password, "", "");
+                login.execute(s_signin);
             }
         });
     }
@@ -120,6 +121,15 @@ public class MainActivity extends ActionBarActivity {
                         GraphRequestAsyncTask request = GraphRequest.newMeRequest(accessToken, new GraphRequest.GraphJSONObjectCallback() {
                             @Override
                             public void onCompleted(JSONObject user, GraphResponse graphResponse) {
+                                try {
+                                    String s_username = user.get("first_name").toString() +
+                                            user.get("last_name").toString();
+                                    String s_facebook_id = user.get("id").toString();
+                                    LogIn login = new LogIn(s_username, "", "",s_facebook_id);
+                                    login.execute(s_signin);
+                                } catch (JSONException e) {
+                                    e.printStackTrace();
+                                }
 
                             }
                         }).executeAsync();
