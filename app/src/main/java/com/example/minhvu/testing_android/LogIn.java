@@ -76,7 +76,6 @@ public class LogIn extends AsyncTask<String, String, String> {
     @Override
     protected void onPostExecute(String result)
     {
-        System.out.println(result);
         super.onPostExecute(result);
     }
 }

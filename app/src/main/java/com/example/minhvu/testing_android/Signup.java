@@ -11,7 +11,8 @@ import android.widget.Toast;
  * Created by minhvu on 4/22/15.
  */
 public class Signup extends Activity {
-    static String s_signup = "http://10.0.2.2:5000/accounts";
+    static String s_signup = "https://testing-android.herokuapp.com/accounts";
+    //static String s_signup = "http://10.0.2.2:5000/accounts";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -29,7 +30,7 @@ public class Signup extends Activity {
                 TextView v_username = (TextView) findViewById(R.id.signup_username);
                 String s_username = v_username.getText().toString();
 
-                TextView v_password = (TextView) findViewById(R.id.signup_password);
+                TextView v_password = (TextView) findViewById(R.id.Main_activity_password);
                 String s_password = v_password.getText().toString();
 
                 TextView v_retype_pwd = (TextView) findViewById(R.id.signup_retype_pwd);

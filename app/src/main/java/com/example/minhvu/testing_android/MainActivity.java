@@ -25,12 +25,14 @@ import org.json.JSONObject;
 
 import java.util.Arrays;
 import java.util.Collection;
+import java.util.concurrent.ExecutionException;
 
 
 public class MainActivity extends ActionBarActivity {
     CallbackManager callbackManager;
     LoginManager loginManager;
-    String s_signin = "http://10.0.2.2:5000/accounts";
+    String s_signin = "https://testing-android.herokuapp.com/accounts";
+    //String s_signin = "http://10.0.2.2:5000/accounts";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -73,15 +75,15 @@ public class MainActivity extends ActionBarActivity {
     }
 
     public void SignInAction() {
-        Button signin = (Button) findViewById(R.id.signin);
+        Button signin = (Button) findViewById(R.id.main_activity_signin_button);
 
         signin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                TextView v_username = (TextView) findViewById(R.id.signin_username);
+                TextView v_username = (TextView) findViewById(R.id.main_activity_username);
                 String s_username = v_username.getText().toString();
 
-                TextView v_password = (TextView) findViewById(R.id.signin_password);
+                TextView v_password = (TextView) findViewById(R.id.main_activity_password);
                 String s_password = v_password.getText().toString();
 
                 LogIn login = new LogIn(s_username, s_password, "", "");
@@ -91,7 +93,7 @@ public class MainActivity extends ActionBarActivity {
     }
 
     public void SignUpAction() {
-        Button signup = (Button) findViewById(R.id.signup);
+        Button signup = (Button) findViewById(R.id.main_activity_signup_button);
 
         signup.setOnClickListener(new View.OnClickListener() {
 
